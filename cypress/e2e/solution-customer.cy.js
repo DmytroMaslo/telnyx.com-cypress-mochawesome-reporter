@@ -14,8 +14,8 @@ describe('Customer Engagement Platforms Page', () => {
     })
     it('Joerny to contact form page', () => {
       SolutionCustomerPage.clickButtonSchedule()
-      cy.url().should('include','/customer-engagement-platforms')
-      //SolutionCustomerPage.header().should('be.visible').should('contain.text','Talk to an expert')
+      cy.url().should('include','/contact-us')
+      SolutionCustomerPage.header().should('be.visible').should('contain.text','Talk to an expert')
     })    
   })
   
