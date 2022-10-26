@@ -1,0 +1,44 @@
+name: mochawesome report
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    Run_test:
+        runs-on: ubuntu-20.04 # Choosing OS
+        strategy:
+            matrix:
+                node-version: [16.17.1]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
+            - run: npm i npm@latest
+            - run: npm i
+
+            - name: run test 
+              run: npm run test:report
+
+            - name: Upload Results
+              uses: actions/upload-artifact@v1
+              if: always()
+              with:
+                name: reports
+                path: ./cypress/reports/html # Name of the folder with allure results                    
+            - name: Publishing Allure artifact to Github Actions
+              uses: actions/upload-artifact@v2
+              if: always()
+              with:
+                name: report
+                path: cypress/reports/html      
+            - name: Deploy report
+              uses: JamesIves/github-pages-deploy-action@4.1.4
+              if: always()
+              with:
+                branch: gh-pages # The branch the action should deploy to.
+                folder: cypress/reports/html  # The folder the action should deploy.

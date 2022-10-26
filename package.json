@@ -1,0 +1,21 @@
+{
+  "name": "cypress-telnyx.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:report": "npx cypress run --e2e",
+    "cypress": "npx cypress open",
+    "report:clear":"rm -r cypress/reports"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "Dmitry Maslo",
+  "license": "ISC",
+
+  "devDependencies": {
+    "cypress": "^10.9.0",
+    "cypress-mochawesome-reporter": "^3.2.3"
+  }
+}
